@@ -1,3 +1,4 @@
+> Rename env.example to .env and change your database credentials
 # Tables
 ## Categories
         ID
@@ -12,5 +13,4 @@
         Price
         Description
         Category_ID
-
->One category has many products
+> Product belongs to category

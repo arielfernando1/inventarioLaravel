@@ -49,5 +49,24 @@
             @endforeach
         </div>
     </div>
-
+<script>
+$(document).ready(function() {
+    $('.btn-danger').click(function(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: '¿Estas seguro?',
+            text: "Al eliminar una categoria se eliminarán sus productos, no podrás revertir esta acción",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $(e.target).parent().submit();
+            }
+        })
+    });
+});
+</script>
 @endsection

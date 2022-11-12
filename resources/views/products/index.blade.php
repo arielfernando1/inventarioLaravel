@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-    <div class="container w-25 m-5">
+    <div class="container w-25 my-3">
         <form action="{{ route('products.store') }}" method="post">
             @csrf
             @if (session('success'))
@@ -65,36 +65,64 @@
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
-                <button type="submit" class="btn btn-primary my-3">Guardar</button>
+                <button type="submit" class="btn btn-success my-3">Guardar</button>
         </form>
-        <div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Marca</th>
-                        <th>Codigo</th>
-                        <th>Stock</th>
-                        <th>Costo</th>
-                        <th>Precio</th>
-                        <th>Descripcion</th>
-                        <th>Categoria</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($products as $product)
-                        @foreach ($categories as $category)
-                            <tr>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->brand }}</td>
-                                <td>{{ $product->sku }}</td>
-                                <td>{{ $product->stock }}</td>
-                                <td>{{ $product->cost }}</td>
-                                <td>{{ $product->price }}</td>
-                                <td>{{ $product->description }}</td>
-                                <td>{{ $category->name }}</td>
-                            </tr>
-                        @endforeach
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Marca</th>
+                    <th>Codigo</th>
+                    <th>Stock</th>
+                    <th>Costo</th>
+                    <th>Precio</th>
+                    <th>Descripcion</th>
+                    <th>Categoria</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($products as $product)
+                    @foreach ($categories as $category)
+                        <tr>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->brand }}</td>
+                            <td>{{ $product->sku }}</td>
+                            <td>{{ $product->stock }}</td>
+                            <td>{{ $product->cost }}</td>
+                            <td>{{ $product->price }}</td>
+                            <td>{{ $product->description }}</td>
+                            <td>{{ $category->name }}</td>
+                            <td>
+                                <a href="{{ route('products.show', $product->id) }}" class="btn btn-primary">Editar</a>
+                                <form action="{{ route('products.destroy', $product->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button id='delete' type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                        </tr>
                     @endforeach
-        </div>
-    @endsection
+                @endforeach
+    </div>
+    <script>
+        //sweet alert on submit button
+        $('#delete').on('click', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "No podras revertir los cambios!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, borrar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).closest('form').submit();
+                }
+            })
+        });
+    </script>
+@endsection
