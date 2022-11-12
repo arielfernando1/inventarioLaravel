@@ -1,9 +1,9 @@
 # Tables
-    ## Categories
+## Categories
         ID
         Name
         Description
-    ## Products
+## Products
         Name
         Brand
         SKU
@@ -13,4 +13,4 @@
         Description
         Category_ID
 
-One category has many products
+>One category has many products
