@@ -9,9 +9,9 @@ class product extends Model
 {
     use HasFactory;
 
-    //product belongs to category
+    //product has one category
     public function category()
     {
-        return $this->belongsTo('App\Models\category');
+        return $this->belongsTo(category::class, 'category_id');
     }
 }

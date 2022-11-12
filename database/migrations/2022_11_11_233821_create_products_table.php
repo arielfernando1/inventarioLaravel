@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('cost');
             $table->string('price');
             $table->string('description');
+            $table->foreignId('category_id')
+                ->constrained()
+                ->onDelete('cascade');
             $table->timestamps();  
         });
     }

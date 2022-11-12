@@ -48,6 +48,7 @@
                 </div>
             </div>
         @endforeach
+
     </div>
     <script>
         $(document).ready(function() {

@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center my-3">
         <div class="col-md-auto">
             <form action="{{ route('products.store') }}" method="post">
                 @csrf
@@ -87,7 +87,6 @@
                 </thead>
                 <tbody>
                     @foreach ($products as $product)
-                        @foreach ($categories as $category)
                             <tr>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->brand }}</td>
@@ -96,7 +95,7 @@
                                 <td>{{ $product->cost }}</td>
                                 <td>{{ $product->price }}</td>
                                 <td>{{ $product->description }}</td>
-                                <td>{{ $category->name }}</td>
+                                <td>{{ $product->category->name }}</td>
                                 <td>
                                     <a href="{{ route('products.show', $product->id) }}" class="btn btn-primary">Editar</a>
                                     <form action="{{ route('products.destroy', $product->id) }}" method="post">
@@ -105,7 +104,6 @@
                                         <button id='delete' type="submit" class="btn btn-danger">Eliminar</button>
                                     </form>
                             </tr>
-                        @endforeach
                     @endforeach
         </div>
     </div>
